@@ -1,10 +1,19 @@
 /*===================================================================================
- PROGRAMMER:			Brett Story
+ PROGRAMMER:			Brett Story,	Kyle Falconer
+ FOLDERS:				Brett322,		_____
+ BRETT'S TASKS:			Patterned polygon, pixelmap, storing file (Contribution: 50%)
+ KYLE'S TASKS:			Circle, Bitmap, text	(Contribution: 50%)
  COURSE:				CSC 525/625
  MODIFIED BY:			N/A
  LAST MODIFIED DATE:	Oct. 5, 2013
  DESCRIPTION:			Demo: drawing points.
- NOTE:					N/A
+ NOTE:					Alpha transparencies were implemented below the desk to give
+						a shadow look. The image in the background was loaded from a
+						C struct, which the image editing program GIMP can export to.
+
+						We worked on the assignment together in person and completed
+						an equal number of tasks, alloted to about 50% each.
+
  FILES:					h3.cpp, (hwProject.sln, ...)
  IDE/COMPILER:			MicroSoft Visual Studio 2012
  INSTRUCTION FOR COMPILATION AND EXECUTION:
@@ -26,10 +35,6 @@ using std::ifstream;
 
 // To exit if the file doesn't exist
 #include <cstdlib>
-
-// To allow for strings
-#include <string>
-using std::string;
 
 //***********************************************************************************
 
