@@ -13,6 +13,7 @@
 	3.		Press Ctrl+Shift+B				to BUILD (COMPILE+LINK)
 	4.		Press Ctrl+F5					to EXECUTE
 ===================================================================================*/
+#define _USE_MATH_DEFINES
 #include <GL/glut.h>				// include GLUT library
 #include <cmath>					// include math library
 
@@ -145,6 +146,43 @@ void drawPoints()
 			glVertex2i(150, 100);
 			glVertex2i(-50, 100);
 		glEnd();
+
+		//Following draws buttons onto the computer monitor bezel
+		float radius = 1;
+		float x_offset = 130;
+		float y_offset = -62;
+		glBegin(GL_POINTS);
+		glColor3f(0.85, 0.55, 0.55);
+		for (int x=0; x<360; x++){
+			float radians = x*(M_PI/180);
+			glVertex2f(cos(radians)*radius+x_offset, sin(radians)*radius+y_offset);
+		}
+		glEnd();
+
+
+		radius = 4.5;
+		x_offset = -31;
+		y_offset = -62;
+		glBegin(GL_POINTS);
+		glColor3f(0.6, 0.6, 0.6);
+		for (int x=0; x<360; x++){
+			float radians = x*(M_PI/180);
+			glVertex2f(cos(radians)*radius+x_offset, sin(radians)*radius+y_offset);
+		}
+		glEnd();
+
+		radius = 4;
+		x_offset = -32;
+		y_offset = -62;
+		glBegin(GL_POINTS);
+		glColor3f(0.65, 0.65, 0.65);
+		for (int x=0; x<360; x++){
+			float radians = x*(M_PI/180);
+			glVertex2f(cos(radians)*radius+x_offset, sin(radians)*radius+y_offset);
+		}
+		glEnd();
+
+
 
 		//Following draws screen onto computer monitor (black)
 		glBegin(GL_POLYGON);
