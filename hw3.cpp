@@ -58,6 +58,30 @@ GLubyte WallPaperPattern[128] = {0X00, 0X00, 0X00, 0X00,
 								0X00, 0X00, 0X00, 0X00,
 								0X00, 0X00, 0X00, 0X00};
 
+static unsigned char image_bits[256] = {
+   0xac, 0x10, 0x40, 0x00, 0xe8, 0xa8, 0x40, 0x00, 0xf8, 0x5a, 0x41, 0x00,
+   0xe8, 0xff, 0x01, 0x80, 0xf0, 0xdf, 0x22, 0xc0, 0xf0, 0xff, 0x43, 0xd8,
+   0xe0, 0xbf, 0x2d, 0xa4, 0xe0, 0xff, 0xf5, 0xe8, 0xe0, 0x3f, 0xfd, 0xd6,
+   0xc0, 0xbf, 0xfa, 0xca, 0xc0, 0x7f, 0xfc, 0xab, 0x80, 0x5f, 0xfd, 0x8b,
+   0x00, 0x3f, 0xfe, 0xa7, 0x80, 0x2e, 0xfe, 0x85, 0x00, 0x51, 0x7e, 0x85,
+   0x06, 0x12, 0xbe, 0x04, 0x0c, 0x20, 0x3e, 0x00, 0x06, 0x00, 0x7e, 0x00,
+   0x0f, 0x10, 0x3e, 0x00, 0x0e, 0x10, 0x7e, 0x00, 0x0f, 0x00, 0x3e, 0x00,
+   0x0a, 0x00, 0x3e, 0x00, 0x0d, 0x00, 0x3e, 0x00, 0x09, 0x00, 0x14, 0x00,
+   0x04, 0x00, 0x02, 0x00, 0x09, 0x00, 0x06, 0x00, 0x08, 0x00, 0x00, 0x00,
+   0x09, 0x00, 0x03, 0x00, 0x12, 0x00, 0x02, 0x02, 0x3a, 0x00, 0x02, 0x00,
+   0x34, 0x00, 0x02, 0x01, 0x7a, 0x00, 0x00, 0x02, 0x7c, 0x00, 0x00, 0x00,
+   0x7c, 0x00, 0x00, 0x02, 0xfc, 0x00, 0x00, 0x08, 0x7c, 0x01, 0x00, 0x00,
+   0xfc, 0x02, 0x00, 0x02, 0xfe, 0x03, 0x00, 0x04, 0xfe, 0x06, 0x00, 0xea,
+   0xfe, 0x03, 0x00, 0x86, 0xff, 0x07, 0x80, 0x73, 0x7d, 0x03, 0x80, 0x46,
+   0xe3, 0x07, 0xe0, 0x03, 0x07, 0x03, 0x50, 0x03, 0x81, 0x06, 0xf0, 0x01,
+   0x07, 0x02, 0xf8, 0x01, 0x00, 0x02, 0xec, 0x00, 0x00, 0x00, 0xfc, 0x00,
+   0x00, 0x00, 0x7e, 0x00, 0x00, 0x00, 0x7e, 0x00, 0x00, 0x00, 0x7e, 0x00,
+   0x00, 0x00, 0x3e, 0x00, 0x00, 0x00, 0x3e, 0x00, 0x00, 0x00, 0x3f, 0x00,
+   0x00, 0x00, 0x1c, 0x00, 0x00, 0x00, 0x18, 0x00, 0x00, 0x00, 0x00, 0x80,
+   0x00, 0x00, 0x09, 0x00, 0x01, 0x00, 0x00, 0x80, 0x01, 0x00, 0x02, 0x00,
+   0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x06, 0x00, 0x01, 0x00, 0x14, 0x00,
+   0x00, 0x00, 0x7c, 0x00 };
+
 void drawPoints()
 {
 		// Following section draws a polygon pattern as background wall paper
@@ -65,13 +89,13 @@ void drawPoints()
 		glPolygonStipple(WallPaperPattern);			//Loads custom pattern
 		glBegin(GL_POLYGON);
 			glColor3f(0.5, .6, 0);						//Creates polygon from vertices
-			glVertex2i(-200, 200);						//and changes color for each point.
+			glVertex2i(-300, 300);						//and changes color for each point.
 			glColor3f(0.5, 0.5, .1);	
-			glVertex2i(-200, -200);
+			glVertex2i(-300, -300);
 			glColor3f(0.5, .6, 0);	
-			glVertex2i(200, -200);
+			glVertex2i(300, -300);
 			glColor3f(0.5, 0.5, .1);	
-			glVertex2i(200, 200);
+			glVertex2i(300, 300);
 		glEnd();
 		glDisable(GL_POLYGON_STIPPLE);
 
@@ -81,10 +105,10 @@ void drawPoints()
 		glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		glBegin(GL_POLYGON);
 			glColor4f(0, 0, 0, .75);
-			glVertex2i(-200, -175);
-			glVertex2i(200, -175);
-			glVertex2i(200, -200);
-			glVertex2i(-200, -200);
+			glVertex2i(-300, -175);
+			glVertex2i(300, -175);
+			glVertex2i(300, -300);
+			glVertex2i(-300, -300);
 		glEnd();
 		glDisable(GL_BLEND);						//Disables Alpha blending
 
@@ -92,41 +116,41 @@ void drawPoints()
 
 		glBegin(GL_POLYGON);							//Creates polygon from vertices
 			glColor3f(.5, .3, .1);						//and changes color for each point.
-			glVertex2i(-200, -50);
-			glVertex2i(200, -50);
-			glVertex2i(200, -150);
-			glVertex2i(-200, -150);
+			glVertex2i(-300, -50);
+			glVertex2i(300, -50);
+			glVertex2i(300, -150);
+			glVertex2i(-300, -150);
 		glEnd();
 
 		// Following draws dark area of desk front
 		glBegin(GL_POLYGON);
 			glColor3f(.4, .2, .05);
-			glVertex2i(-200, -150);
-			glVertex2i(200, -150);
-			glVertex2i(200, -175);
-			glVertex2i(-200, -175);
+			glVertex2i(-300, -150);
+			glVertex2i(300, -150);
+			glVertex2i(300, -175);
+			glVertex2i(-300, -175);
 		glEnd();
 
 		// Following draws line on desk for psuedo-perspective
-		int CurrentLineStartX = 375;
+		int CurrentLineStartX = 600;
 		int TotalSurfaceLines = 12;
 		glLineWidth(4);
 		for (int i = 0; i < TotalSurfaceLines; i++){
 			glBegin(GL_LINES);
 				glColor3f(.45, .25, 0.08);
 				glVertex2i(CurrentLineStartX, -50);
-				glVertex2i(CurrentLineStartX - 200, -150);
+				glVertex2i(CurrentLineStartX - 400, -150);
 			glEnd();
-			CurrentLineStartX -= 50;
+			CurrentLineStartX -= 100;
 		}
 
 		glBegin(GL_LINES);
-			glVertex2i(-200, -50);
-			glVertex2i(200, -50);
+			glVertex2i(-300, -50);
+			glVertex2i(300, -50);
 		glEnd();
 		glBegin(GL_LINES);
-			glVertex2i(-200, -150);
-			glVertex2i(200, -150);
+			glVertex2i(-300, -150);
+			glVertex2i(300, -150);
 		glEnd();
 
 		//Following draws computer monitor w/o screen
@@ -171,13 +195,18 @@ void drawPoints()
 			glVertex2i(-25, 75);
 			glVertex2i(-49, 99);
 		glEnd();
+
+		// Draws a multicolor bitmap
+		glRasterPos2i(-256, -256);
+		glDrawPixels(32, 64, GL_COLOR_INDEX, GL_UNSIGNED_BYTE, image_bits);
+
 }
 
 //***********************************************************************************
 void myInit()
 {
 	glClearColor(0, .3, .4, 0);			// specify a background clor: blueish-green
-	gluOrtho2D(-200, 200, -200, 200);  // specify a viewing area
+	gluOrtho2D(-300, 300, -300, 300);  // specify a viewing area
 }
 
 //***********************************************************************************
