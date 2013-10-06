@@ -18,9 +18,24 @@
 #include <GL/glut.h>				// include GLUT library
 #include <cmath>					// include math library
 #include <string>
+using namespace std;
+
+// To allow file reading
+#include <fstream>
+using std::ifstream;
+
+// To exit if the file doesn't exist
+#include <cstdlib>
+
+// To allow for strings
+#include <string>
+using std::string;
 
 //***********************************************************************************
 
+GLfloat PixelsRead[786432];
+
+// Is the pattern used for the wall paper
 GLubyte WallPaperPattern[128] = {0X00, 0X00, 0X00, 0X00,
 	0X00, 0X00, 0X00, 0X00,
 	0X00, 0X00, 0X00, 0X00,
@@ -61,6 +76,7 @@ GLubyte WallPaperPattern[128] = {0X00, 0X00, 0X00, 0X00,
 	0X00, 0X00, 0X00, 0X00,
 	0X00, 0X00, 0X00, 0X00};
 
+// Is a c struct of the image behind the computer
 static const struct {
   unsigned int 	 width;
   unsigned int 	 height;
@@ -421,7 +437,27 @@ void drawPoints()
 		char c = *i;
 		glutBitmapCharacter(font, c);
 	}
+
+	//This section begins the file saving
+	glPixelStoref(GL_UNPACK_ALIGNMENT, 8);
+	glReadPixels(0, 0, 512, 512, GL_RGB, GL_FLOAT, PixelsRead);
+
+	// Removes any previous version of savedImg.txt
+	remove("C:\\TEMP\\savedImg.txt");
+
+	ofstream ResultFile("C:\\TEMP\\savedImg.txt");
+
+	for (int i = 0; i < 786432; i++)
+	{
+		ResultFile << PixelsRead[i] << " ";
+	}
+
+	// Closes the file so it is no longer streaming
+	ResultFile.close();
+
+	cout << "File has been saved in C:\TEMP\savedImg.txt";
 }
+
 
 //***********************************************************************************
 void myInit()
