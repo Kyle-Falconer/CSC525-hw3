@@ -1,23 +1,26 @@
 /*===================================================================================
- PROGRAMMER:			Brett Story
- COURSE:				CSC 525/625
- MODIFIED BY:			N/A
- LAST MODIFIED DATE:	Oct. 5, 2013
- DESCRIPTION:			Demo: drawing points.
- NOTE:					N/A
- FILES:					h3.cpp, (hwProject.sln, ...)
- IDE/COMPILER:			MicroSoft Visual Studio 2012
- INSTRUCTION FOR COMPILATION AND EXECUTION:
-	1.		Double click on labProject.sln	to OPEN the project
-	2.		Press Ctrl+F7					to COMPILE
-	3.		Press Ctrl+Shift+B				to BUILD (COMPILE+LINK)
-	4.		Press Ctrl+F5					to EXECUTE
+PROGRAMMER:			Brett Story
+COURSE:				CSC 525/625
+MODIFIED BY:			N/A
+LAST MODIFIED DATE:	Oct. 5, 2013
+DESCRIPTION:			Demo: drawing points.
+NOTE:					N/A
+FILES:					h3.cpp, (hwProject.sln, ...)
+IDE/COMPILER:			MicroSoft Visual Studio 2012
+INSTRUCTION FOR COMPILATION AND EXECUTION:
+1.		Double click on labProject.sln	to OPEN the project
+2.		Press Ctrl+F7					to COMPILE
+3.		Press Ctrl+Shift+B				to BUILD (COMPILE+LINK)
+4.		Press Ctrl+F5					to EXECUTE
 ===================================================================================*/
 #define _USE_MATH_DEFINES
 #include <iostream>
 #include <GL/glut.h>				// include GLUT library
 #include <cmath>					// include math library
 #include <string>
+#include <algorithm>
+
+void ReverseBytes( GLubyte *start, int size );
 
 //***********************************************************************************
 
@@ -84,6 +87,46 @@ static unsigned char image_bits[256] = {
 	0x00, 0x00, 0x09, 0x00, 0x01, 0x00, 0x00, 0x80, 0x01, 0x00, 0x02, 0x00,
 	0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x06, 0x00, 0x01, 0x00, 0x14, 0x00,
 	0x00, 0x00, 0x7c, 0x00 };
+
+#define win_width 32
+#define win_height 32
+GLubyte win_logo[128] = {
+	0x00, 0x00, 0x00, 0x00,
+	0x00, 0x00, 0x00, 0x00,
+	0x00, 0x00, 0x00, 0x00,
+	0x00, 0x00, 0xfc, 0x00,
+	0xf0, 0x3f, 0xf3, 0x00,
+	0xff, 0xff, 0x03, 0xc0,
+	0xff, 0xfc, 0x00, 0xc0,
+	0xcf, 0xcc, 0x00, 0xc0,
+	0xc0, 0x0c, 0x00, 0xc0,
+	0xc0, 0x0c, 0x00, 0xc0,
+	0xc0, 0x0c, 0x00, 0xc0,
+	0xc0, 0x0c, 0x00, 0xc0,
+	0xc0, 0x0c, 0x00, 0xc0,
+	0xc0, 0x0c, 0x00, 0xc0,
+	0xc0, 0x0c, 0x00, 0xc0,
+	0xc0, 0x0c, 0xfc, 0xc0,
+	0xf0, 0x3c, 0xff, 0xc0,
+	0xff, 0xff, 0xff, 0xc0,
+	0xff, 0xff, 0x03, 0xc0,
+	0xff, 0xfc, 0x00, 0xc0,
+	0xcf, 0xcc, 0x00, 0xc0,
+	0xc0, 0x0c, 0x00, 0xc0,
+	0xc0, 0x0c, 0x00, 0xc0,
+	0xc0, 0x0c, 0x00, 0xc0,
+	0xc0, 0x0c, 0x00, 0xc0,
+	0xc0, 0x0c, 0x00, 0xc0,
+	0xc0, 0x0c, 0x00, 0xc0,
+	0xc0, 0x0c, 0x00, 0xc0,
+	0xc0, 0x0c, 0xfc, 0xc0,
+	0xf0, 0x3c, 0xff, 0xc0,
+	0xff, 0xff, 0xff, 0xc0,
+	0x1f, 0xff, 0x03, 0xc0
+
+};
+
+
 
 void drawPoints()
 {
@@ -246,11 +289,25 @@ void drawPoints()
 		char c = *i;
 		glutBitmapCharacter(font, c);
 	}
-	
+
+	// ReverseBytes( Tux_bits, Tux_width * Tux_height);
+	// Draw Tux onto the computer monitor
+	glPixelStorei(GL_UNPACK_ALIGNMENT, 4);
+	glRasterPos2i(0, 0);
+	glBitmap( win_width, win_height,   -20, 20,   0, 0,  win_logo);
+
+
 	// Draws a multicolor bitmap
 	glRasterPos2i(-256, -256);
 	glDrawPixels(32, 64, GL_COLOR_INDEX, GL_UNSIGNED_BYTE, image_bits);
 
+
+}
+
+void ReverseBytes( GLubyte *start, int size )
+{
+	GLubyte *istart = start, *iend = istart + size;
+	std::reverse(istart, iend);
 }
 
 //***********************************************************************************
