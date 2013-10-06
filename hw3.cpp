@@ -507,7 +507,7 @@ void drawPoints()
 	// Closes the file so it is no longer streaming
 	ResultFile.close();
 
-	cout << "File has been saved in C:\TEMP\savedImg.txt";
+	cout << "File has been saved in C:\\TEMP\\savedImg.txt";
 }
 
 
